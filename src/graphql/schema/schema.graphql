@@ -1,0 +1,65 @@
+type Query{
+    getMonthExpense(date: String!): Float!
+    getMonthIncome(date: String!): Float!
+    getMonthExpenseData(date: String!): [Expense!]!
+    me:User!
+    checkValidUser: Boolean!
+    getExpenseById(id:ID!): Expense!
+}
+
+type Mutation {
+    register(data: InputRegisterData!): User!
+    login(data: InputLoginData!): User!
+    addExpense(data: InputExpenseData!): Expense!
+    updateExpense(id: ID! , data: UpdateExpenseData!): Expense!
+    deleteExpense(id:ID!): Expense!
+    updateProfile(data: UpdateProfileData!): User!
+}
+
+input InputRegisterData {
+    username: String!
+    password: String!
+    email: String!
+    name: String!
+}
+
+input InputLoginData {
+    username: String!
+    password: String!
+}
+
+input InputExpenseData {
+    title: String!
+    isPaid: Boolean!
+    amount: Float!
+    date: String!
+}
+
+input UpdateExpenseData {
+    title: String
+    isPaid: Boolean
+    amount: Float
+    date: String
+}
+
+input UpdateProfileData {
+    name: String
+    email: String
+}
+
+type Expense {
+    _id: ID!
+    title: String!
+    isPaid: Boolean!
+    amount: Float!
+    date: String!
+    user: User!
+}
+type User {
+    _id: ID!
+    name: String!
+    username: String!
+    email: String!
+    token: String
+    # Expenses: [Expense!]!
+}
